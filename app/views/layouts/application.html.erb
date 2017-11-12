@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ECRUIT</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script
+          src="https://code.jquery.com/jquery-3.2.1.min.js"
+          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+          crossorigin="anonymous"></script>
+</head>
+<body style="height: 100vh;">
+  <div class="fixed-top top_menu">
+    <div class="login_menu">
+        <% if !user_signed_in? %>
+            <a href='/users/sign_up' class="mr-3">회원가입</a>
+            <%=link_to '로그인', user_session_path%>
+        <%end%>
+        <% if user_signed_in? %>
+          <%= current_user.name %> 님 환영합니다
+          <%=link_to(destroy_user_session_path, :method => :delete, :class => "ml-3") do %>
+              로그아웃
+          <%end%>
+        <%end%>
+    </div>
+    <header class="header px-4 py-3">
+        <nav class="header_nav d-flex align-items-center bg-faded">
+            <div>
+                <a href="/" class="logo">ECRUIT</a>
+            </div>
+            <div style="width: 40%">
+                <%= form_tag(posts_show_path, :method => "get", id: "search-form", :class=> " d-inline pb-2 mt-2") do %>
+                    <%= text_field_tag :search, params[:search], placeholder: "Search", :class=>"form-control mr-sm-2"  %>
+                    <%#= submit_tag "Search", :name => nil, :class=>"btn btn-outline-success my-2 my-sm-0" %>
+                <% end %>
+            </div>
+            <div>
+                <a href="/recruit" class="mr-5 menu">채용공고</a>
+                <a href="/hr" class="mr-5 menu">인력공고</a>
+                <a href="/apply" class="mr-5 menu">지원관리</a>
+                <% if user_signed_in? %>
+                  <a href="/users/edit" class="mr-5 menu">마이페이지</a>   
+                <% end %>
+            </div>
+        </nav>
+    </header>
+  </div>
+  
+<%= yield %>
+
+<script>
+    $(document).ready(function () {
+            var url = window.location.href;
+            // console.log(url);
+            $("a.menu").each(function() {
+                console.log(this.href);
+                if(url == (this.href)){
+                    $(this).addClass("active");
+                }
+            })
+    })
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</body>
+</html>

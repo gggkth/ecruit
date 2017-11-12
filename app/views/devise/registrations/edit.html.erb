@@ -1,0 +1,45 @@
+<div class="container devise_view">
+  <hr/>
+  <h2 class="mb-5">마이페이지 <%#= resource_name.to_s.humanize %></h2>
+  
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= devise_error_messages! %>
+  
+    <div class="register_field">
+      <%= f.label :아이디 %>
+      <%= f.email_field :email, autofocus: true, readonly: true %>
+    </div>
+  
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+  
+    <div class="register_field">
+      <span>새 비밀번호</span>
+      <%= f.password_field :password, autocomplete: "off" %>
+      <%# if @minimum_password_length %>
+        <!--<em><%#= @minimum_password_length %> characters minimum</em>-->
+      <%# end %>
+    </div>
+  
+    <div class="register_field">
+      <span>비밀번호 확인</span>
+      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    </div>
+  
+    <div class="register_field">
+      <span>현재 비밀번호</span>
+      <%= f.password_field :current_password, autocomplete: "off" %>
+    </div>
+    <div class="actions" style="text-align: right;">
+      <%= f.submit "저장", :class => "btn-outline-info btn register_btn" %>
+    </div>
+  <% end %>
+  
+  <h4>계정 삭제</h4>
+  
+  <p>Unhappy? <%= button_to "계정 삭제", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+  
+  <%= link_to "Back", :back %>  
+</div>
+

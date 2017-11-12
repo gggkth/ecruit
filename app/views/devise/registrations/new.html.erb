@@ -1,0 +1,132 @@
+<div class="container devise_view">
+  <hr/>
+  <h2 class="mb-5">회원가입</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="total_field d-flex">
+    <div class="types">
+    <div class="type1">
+      <div class="register_field">
+        <span>이름</span><%= f.text_field :name %>
+      </div>
+      <div class="register_field">
+        <span>생년월일</span><%= f.date_select :birth_date %>
+      </div>
+      <div class="mb-2">
+        <span class="mr-5">성별</span>
+        <%= f.radio_button :gender, '남성', :class => "ml-5" %> 남성
+        <%= f.radio_button :gender, '여성', :class => "ml-3" %> 여성
+      </div>
+      <div class="register_field">
+        <span>휴대폰번호</span>
+        <%= f.text_field :phone_number %>
+      </div>
+      <div class="register_field">
+        <span>주소</span>
+        <%= f.text_field :address %>
+      </div>
+      <div class="mb-2">
+        <span class="mr-5">알림 수신</span>
+        <%= f.radio_button :is_receive, '수신' %> 수신
+        <%= f.radio_button :is_receive, '미수신', :class => "ml-3" %> 미수신
+      </div>
+    </div>
+    
+    <div class="type1_2">
+      
+    </div>
+    
+    <div class="type2_1">
+      <div class="register_field">
+        <span>기업명</span><%= f.text_field :name %>
+      </div>
+      <div class="register_field">
+        <span>전화번호</span>
+        <%= f.text_field :phone_number %>
+      </div>
+      <div class="register_field">
+        <span>주소</span>
+        <%= f.text_field :address %>
+      </div>
+    </div>
+    
+    <div class="type2_2">
+      <div class="register_field">
+        <span>소개</span><%= f.text_area :intro, :rows => 5, :cols => 30 %>
+      </div>
+    </div>
+  </div>
+    <div class="left_field">
+      <div class="register_field">
+        <span>아이디</span><%= f.email_field :email, autofocus: true, :placeholder => "이메일 입력" %>
+      </div>
+    
+      <div class="register_field">
+        <%#= f.label :password %>
+        <span>비밀번호</span>
+        <%# if @minimum_password_length %>
+        <!--<em>(<%#= @minimum_password_length %> 자리 이상)</em>-->
+        <%# end %>
+        <%= f.password_field :password, autocomplete: "off" %>
+      </div>
+      <div class="register_field">
+        <%#= f.label :password_confirmation %>
+        <span>비밀번호 확인</span>
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      </div>
+      <div class="mb-2">
+        <span class="mr-5">회원유형</span>
+        <%= f.radio_button :user_type, '일반회원', :class => "type_btn" %> 일반회원
+        <%= f.radio_button :user_type, '기업회원', :class => "type_btn ml-3" %> 기업회원 
+      </div>
+      
+      <div class="field1">
+        
+      </div>
+  
+    </div>
+    <div class="right_field">
+      <div class="field2">
+        
+      </div>
+    </div>
+  </div>
+  <div class="actions" style="text-align: right;">
+    <%= f.submit "가입", :class => "btn-outline-info btn register_btn" %>
+  </div>
+  
+<% end %>
+
+<%#= render "devise/shared/links" %>
+</div>
+
+<script>
+   $(document).ready(function() {
+        $(".type_btn").click(function() {
+          $(".field1").empty();
+          $(".field2").empty();
+          if(this.value=="일반회원"){
+            $.ajax({
+              type: "GET"
+            }).done(function(data) {
+              var e = $(data).find(".type1");
+              var v = $(data).find(".type1_2");
+              $(".field1").append(e);
+              $(".field2").append(v);
+            });
+          }
+           if(this.value=="기업회원"){
+            $.ajax({
+              type: "GET"
+            }).done(function(data) {
+              var e = $(data).find(".type2_1");
+              var v = $(data).find(".type2_2");
+              $(".field1").append(e);
+              $(".field2").append(v);
+            });
+          }
+        });
+    });
+</script>
+
