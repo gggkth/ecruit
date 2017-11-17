@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   get '/show' => 'main#show', as: 'posts_show'
   get '/apply' => 'main#apply'
   get '/hr' => 'main#hr'
-  get '/recruit' => 'main#recruit'
+  get '/recruit' => 'main#recruit', as: 'recruit'
+  get '/recruit_list' => 'main#recruit_list', as: 'recruit_list'
+  get '/new_recruit' => 'posts#new_recruit', as: 'new_recruit'
+  post '/create_recruit' => 'posts#create_recruit', as: 'create_recruit'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -13,26 +13,14 @@
 </div>
 <div class="container devise_view">
     <hr/>
-    <h2 class="mb-3">현재 채용공고</h2><br><br>
-    <div class="container">
-      <div class="post_label mb-2">
-        <span>글번호</span>
-        <span>기업명</span>
-        <span>작성일</span>
-        <span>제목</span>
-        <span>마감일</span>
-      </div>
-      <% @posts.each do |post| %>
-        <div class="post_item mb-3">
-          <span><%= post.id %></span>
-          <span><%= post.recruiter %></span>
-          <span><%= post.created_at.to_date %></span>
-          <span><%= post.title %></span>
-          <span><%= post.duedate %></span>
-          <a href="#" class="apply_btn">지원하기</a>
-        </div>
-      <% end %>  
-    </div>
+    <h2>채용공고 등록</h2> <br><br>
+    <%= form_for @post, url: create_recruit_path do |f|%>
+        <div><h6>제목</h6></textarea><%= f.text_field :title, :class => "" %></div><br>
+        <div><h6>내용</h6><%= f.text_area :content, :class => "" %></div><br>
+        <div><%= f.datetime_select :duedate, :start_year => 2011, :class => "" %></div><br>
+        <div><%= f.submit '작성', class:"write btn btn-outline-success my-2 my-sm-0"%></div>
+    <% end %>
+        
 </div>
 
 <script>

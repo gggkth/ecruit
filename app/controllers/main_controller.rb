@@ -8,11 +8,14 @@ class MainController < ApplicationController
     end
     
     def recruit
+        @posts = RecruitPost.all
     end
     
     def hr
+        
     end
     
     def apply
+        
     end
 end

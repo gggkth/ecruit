@@ -20,6 +20,17 @@ a.menu:hover {
 .active {
     color: #5F04B4 !important;
 }
+.nav_active {
+    color: white !important;
+    background-color: #2F0B3A;
+}
+a.nav-link {
+    transition: all 0.2s ease-in-out;
+}
+a.nav-link:hover {
+    color: white !important;
+    background-color: #2F0B3A;
+}
 .login_menu {
     padding-right: 20px;
     text-align: right;
@@ -137,7 +148,7 @@ a.menu:hover {
 .vertical_menu {
     width: 160px;
     height: 100%;
-    background-color: #2F0B3A;
+    /*background-color: #2F0B3A;*/
     /*background-color: #CECEF6;*/
     float: left;
     padding-top: 20px;
@@ -145,7 +156,7 @@ a.menu:hover {
     margin-bottom: 5px;
 }
 .vertical_menu a {
-    color: white;
+    color: black;
     font-weight: normal;
     font-size: 1.2rem;
     text-align: center;
@@ -155,4 +166,32 @@ a.menu:hover {
 }
 li.nav-item {
     margin-bottom: 20px;
+}
+
+.post_label span {
+    display: inline-block;
+    width: 180px;
+    font-weight: bold;
+}
+.post_item span {
+    display: inline-block;
+    width: 180px;
+}
+.post_label span:first-child,
+.post_item span:first-child {
+    width: 100px;
+}
+.apply_btn {
+    padding: 5px;
+    font-weight: bold;
+    color: black;
+    border-radius: 0;
+    border-color: black;
+    background-color: #CECEF6;
+    transition: all 0.1s ease-in-out;
+}
+.apply_btn:hover {
+    background-color: #380B61;
+    text-decoration: none;
+    color: white;
 }
