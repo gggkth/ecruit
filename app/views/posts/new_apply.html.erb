@@ -1,0 +1,14 @@
+<div class="container devise_view">
+    <hr/>
+    <h2>지원서 작성</h2> <br><br>
+    <%= form_for @app, url: create_application_path do |f|%>
+        <div>제목: <%= @app_title %></div>
+        <div>질문: <%= @app_question %></div>
+        <div>답변: <%= f.text_area :answer, :class => "" %></div>
+        <%= f.hidden_field :title, :value => @app_title %>
+        <%= f.hidden_field :question, :value => @app_question %>
+        <%= f.hidden_field :name, :value => @app_name %>
+        <div><%= f.submit '작성', class:"write btn btn-outline-success my-2 my-sm-0"%></div>
+    <% end %>
+        
+</div>

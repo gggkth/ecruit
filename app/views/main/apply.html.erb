@@ -1,17 +1,31 @@
-<div class="vertical_menu">
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link" href="#">지원목록</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">관심목록</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">히스토리</a>
-      </li>
-    </ul>
-</div>
 <div class="container devise_view">
+    <h2 class="mb-3">등록한 채용공고</h2>
     <hr/>
-    <h2>지원관리</h2>
+    <div class="container">
+      <div class="post_label mb-2">
+        <span>글번호</span>
+        <span>제목</span>
+        <span>진행상태</span>
+        <span>서류평가</span>
+        <span>면접평가</span>
+      </div>
+      <% if current_user %>
+        <% @posts.each do |post| %>
+          <div class="post_item mb-3">
+            <span><%= post.id %></span>
+            <span><%= post.title %></span>
+            <span><%= ApplyInfo.find(post).status %></span>
+            <% if post.duedate > Time.now.to_datetime %>
+              <span><a href="/eval/<%=post.id%>">평가</a></span>
+            <% else %>
+              <span><%= ApplyInfo.where(recruit_post: post.id)[0].application_eval_score %></span>
+            <% end %>
+            <% if post.duedate > Time.now.to_datetime %>
+              <span><a href="/eval/<%=post.id%>">평가</a></span>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+      
+    </div>
 </div>

@@ -8,7 +8,12 @@ Rails.application.routes.draw do
   get '/recruit' => 'main#recruit', as: 'recruit'
   get '/recruit_list' => 'main#recruit_list', as: 'recruit_list'
   get '/new_recruit' => 'posts#new_recruit', as: 'new_recruit'
+  get '/eval/:post_id' => 'main#app_eval'
   post '/create_recruit' => 'posts#create_recruit', as: 'create_recruit'
+  get '/create_apply/:post_id' => 'main#create_apply', as: 'create_apply'
+  get '/new_application' => 'posts#new_application', as: 'new_application'
+  get '/new_apply/:post_id' => 'posts#new_apply', as: 'new_apply'
+  post '/create_application' => 'posts#create_application', as: 'create_application'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

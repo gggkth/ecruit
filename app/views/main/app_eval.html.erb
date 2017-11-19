@@ -1,0 +1,33 @@
+<div class="vertical_menu">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="/eval/<%=@post_id%>">서류평가</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">면접평가</a>
+      </li>
+    </ul>
+</div>
+<div class="container devise_view">
+    <hr/>
+    <h3 class="mb-3"><%= RecruitPost.find(@post_id).title %></h3>
+    <h5>지원자 목록</h5>
+    <% @applicants.each do |applicant| %>
+        <div>
+            <%= applicant.name %>
+        </div>
+    <% end %>
+</div>
+
+<script>
+  $(document).ready(function () {
+            var url = window.location.href;
+            // console.log(url);
+            $("a.nav-link").each(function() {
+                console.log(this.href);
+                if(url == (this.href)){
+                    $(this).addClass("nav_active");
+                }
+            })
+        });
+</script>

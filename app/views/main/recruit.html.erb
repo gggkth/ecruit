@@ -7,7 +7,7 @@
         <a class="nav-link" href="/new_recruit">채용공고 등록</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">지원서 편집</a>
+        <a class="nav-link" href="/new_application">지원서 편집</a>
       </li>
     </ul>
 </div>
@@ -15,7 +15,7 @@
     <hr/>
     <h2 class="mb-3">현재 채용공고</h2><br><br>
     <div class="container">
-      <div class="post_label mb-2">
+      <div class="post_label mb-2"> 
         <span>글번호</span>
         <span>기업명</span>
         <span>작성일</span>
@@ -25,11 +25,18 @@
       <% @posts.each do |post| %>
         <div class="post_item mb-3">
           <span><%= post.id %></span>
-          <span><%= post.recruiter %></span>
+          <span><%= post.name %></span>
           <span><%= post.created_at.to_date %></span>
           <span><%= post.title %></span>
-          <span><%= post.duedate %></span>
-          <a href="#" class="apply_btn">지원하기</a>
+          <span><%= post.duedate.to_date %></span>
+          <% if current_user && current_user.user_type == "일반회원" %>
+            <% if post.users.include? current_user %>
+              <span>지원완료</span>
+            <% else %>
+              <!--<a href="/create_apply/<%#=post.id%>" class="apply_btn">지원하기</a>-->
+              <a href="/new_apply/<%=post.id%>" class="apply_btn">지원하기</a>
+            <% end %>
+          <% end %>
         </div>
       <% end %>  
     </div>

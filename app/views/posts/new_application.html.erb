@@ -3,23 +3,20 @@
       <li class="nav-item">
         <a class="nav-link" href="/recruit">채용공고</a>
       </li>
-      <% if current_user.user_type == "기업회원" %>
-        <li class="nav-item">
-          <a class="nav-link" href="/new_recruit">채용공고 등록</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">지원서 편집</a>
-        </li>
-      <% end %>
+      <li class="nav-item">
+        <a class="nav-link" href="/new_recruit">채용공고 등록</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/new_application">지원서 편집</a>
+      </li>
     </ul>
 </div>
 <div class="container devise_view">
     <hr/>
-    <h2>채용공고 등록</h2> <br><br>
-    <%= form_for @post, url: create_recruit_path do |f|%>
+    <h2>지원서 편집</h2> <br><br>
+    <%= form_for @app, url: create_application_path do |f|%>
         <div><h6>제목</h6></textarea><%= f.text_field :title, :class => "" %></div><br>
-        <div><h6>내용</h6><%= f.text_area :content, :class => "" %></div><br>
-        <div><%= datetime_select('duedate', 'date', :order => [:month, :day, :year, :hour,:minute]) %></div><br>
+        <div><h6>질문</h6><%= f.text_area :question, :class => "" %></div><br>
         <div><%= f.submit '작성', class:"write btn btn-outline-success my-2 my-sm-0"%></div>
     <% end %>
         
