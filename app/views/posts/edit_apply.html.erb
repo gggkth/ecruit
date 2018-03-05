@@ -1,6 +1,6 @@
 <div class="container devise_view">
     <hr/>
-    <h2>지원서 작성</h2> <br><br>
+    <h2>지원서 수정</h2> <br><br>
     <%= form_for @app, url: create_application_path do |f|%>
         <div class="mb-3">제목: <%= f.text_field :title, :size=>"50" %></div>
         <div>
@@ -14,7 +14,7 @@
             </ol>
         </div>
         <%= f.hidden_field :post_id, :value => params[:post_id] %>
-        <div class="mb-3"><%= f.submit '작성', class:"write btn btn-outline-success my-2 my-sm-0"%></div>
+        <div class="mb-3"><%= f.submit '수정', class:"write btn btn-outline-success my-2 my-sm-0"%></div>
     <% end %>
         
 </div>

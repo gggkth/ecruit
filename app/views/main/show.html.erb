@@ -1,1 +1,35 @@
-show
+<div class="container devise_view">
+    <% if current_user && current_user.user_type == "기업회원" && current_user.id == @post.recruiter %>
+        <div>
+            <%= form_for @post, url: "/edit_recruit/#{@post.id}" do|f| %>
+                <h2>채용공고 편집</h2><br>
+                <div><h6>제목</h6><%= f.text_area :title, :value => @post.title, :class => "", :rows =>1, :cols => 60 %></div><br>
+                <div><h6>내용</h6><%= f.text_area :content, :value => @post.content, :class => "", :rows => 10, :cols => 60 %></div><br>
+                <div><h6>마감일</h6><%= datetime_select('duedate', 'date', :value => @post.duedate, :order => [:month, :day, :year, :hour,:minute]) %></div><hr/>
+                <h2>질문 편집</h2><br>
+                <ol>
+                <% @app.qas.each do |q| %>
+                    <li class="mb-2"><input type='text' name='questions[]' size='50' value="<%=q.question%>"></input></li>
+                <% end %>
+                </ol>
+                <div class="d-flex justify-content-center mb-5"><%= f.submit '수정', :class => "write btn btn-outline-success my-2 my-sm-0 "%></div>
+            <% end %>
+            
+        </div>
+    <% elsif current_user && current_user.user_type == "일반회원" %>
+            <div class="mb-5">
+                <h2>채용공고</h2>
+                <div>
+                    <h5>제목</h5>
+                    <div class="mb-4"><%= @post.title %></div>
+                    <h5>내용</h5>
+                    <div><%= @post.content %></div>
+                </div>        
+            </div>
+            <% if !@post.users.include? current_user %>
+                <a href="/new_apply/<%=@post.id%>" class="apply_btn">지원하기</a>
+            <% end %>
+        <% else %>
+            <h4>권한이 없습니다.</h4>
+    <% end %>
+</div>

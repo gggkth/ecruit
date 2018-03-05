@@ -4,7 +4,7 @@ class CreateRecruitPosts < ActiveRecord::Migration
       t.string :title
       t.text :content
       t.datetime :duedate
-      t.string :name
+      t.integer :recruiter
 
       t.timestamps null: false
     end

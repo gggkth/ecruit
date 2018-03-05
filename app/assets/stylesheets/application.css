@@ -60,7 +60,7 @@ a.nav-link:hover {
     width: 90%;
     border-radius: 0;
     /*border-color: black;*/
-    border-width: medium;
+    border-width: medium !important;
 }
 #search-form .form-control:focus,
 #search-form .form-control:active,
@@ -185,7 +185,7 @@ li.nav-item {
     padding: 5px;
     font-weight: bold;
     color: black;
-    border-radius: 0;
+    border-radius: 7px;
     border-color: black;
     background-color: #CECEF6;
     transition: all 0.1s ease-in-out;
@@ -194,4 +194,28 @@ li.nav-item {
     background-color: #380B61;
     text-decoration: none;
     color: white;
+}
+.add_q {
+    border-radius: 100px !important;
+    border-width: medium !important;
+    font-weight: bolder !important;
+}
+.write {
+    border-radius: 0 !important;
+}
+.recruit_list {
+    color: black;
+}
+.recruit_list:hover {
+    text-decoration: none;
+    
+}
+.post_item:hover {
+    /*background-color: #D5E2FF;*/
+    background-color: #CEECF5;
+    text-decoration: none;
+}
+
+.app_eval {
+    justify-content: space-between;
 }

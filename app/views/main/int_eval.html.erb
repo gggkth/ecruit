@@ -12,15 +12,23 @@
     <h3 class="mb-3"><%= RecruitPost.find(@post_id).title %></h3><hr/>
     <h5>지원자 목록</h5>
        <div class="container">
-          <div class="post_label mb-3 bg-dark p-1 col-sm-12 col-md-6"> 
+          <div class="post_label mb-3 p-1 bg-dark col-sm-12 col-md-6"> 
             <span class="text-light">지원자 이름</span>
-            <span class="text-light">서류 평가 점수</span>
+            <span class="text-light">면접 평가 점수</span>
             <span class="text-light">합격여부</span>
           </div>
         <% @applicants.each do |applicant| %>
             <div class="post_item mb-3 p-1 col-sm-12 col-md-6">
-                <span><a href="/eval_application/<%= applicant.id %>"><%= applicant.name %></a></span>
-                <span><%= ApplyInfo.find_by(user:applicant.id).application_eval_score %></span>
+              <%@infos=ApplyInfo.where(recruit_post_id: @post_id)%>
+              <% @infos.each do |info| %>
+                <% if info.user_id == applicant.id%>
+                  <% @app_num = info.recruit_application_id %>
+                <% end %>
+              <% end %>
+              
+   
+                <span><a href="/eval_interview/<%=@app_num%>"><%= applicant.name %></a></span>
+                <span><%= ApplyInfo.find_by(user:applicant.id).interview_eval_score %></span>
                 <span><%= ApplyInfo.find_by(user:applicant.id).apply_result %></span>
             </div>
         <% end %>

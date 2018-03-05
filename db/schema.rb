@@ -11,15 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171117082908) do
+ActiveRecord::Schema.define(version: 20171202113054) do
 
   create_table "apply_infos", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "recruit_post_id"
     t.integer  "recruit_application_id"
     t.string   "status",                 default: "진행중"
-    t.integer  "application_eval_score"
-    t.integer  "interview_eval_score"
+    t.integer  "application_eval_score", default: 0
+    t.integer  "interview_eval_score",   default: 0
+    t.string   "apply_result",           default: "미정"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
   end
@@ -28,11 +29,18 @@ ActiveRecord::Schema.define(version: 20171117082908) do
   add_index "apply_infos", ["recruit_post_id"], name: "index_apply_infos_on_recruit_post_id"
   add_index "apply_infos", ["user_id"], name: "index_apply_infos_on_user_id"
 
+  create_table "qas", force: :cascade do |t|
+    t.integer  "recruit_application_id"
+    t.text     "question"
+    t.text     "answer"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "recruit_applications", force: :cascade do |t|
     t.string   "title"
     t.string   "name"
-    t.text     "question"
-    t.text     "answer"
+    t.integer  "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,7 +49,7 @@ ActiveRecord::Schema.define(version: 20171117082908) do
     t.string   "title"
     t.text     "content"
     t.datetime "duedate"
-    t.string   "name"
+    t.integer  "recruiter"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

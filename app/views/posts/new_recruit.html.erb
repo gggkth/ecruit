@@ -3,26 +3,27 @@
       <li class="nav-item">
         <a class="nav-link" href="/recruit">채용공고</a>
       </li>
-      <% if current_user.user_type == "기업회원" %>
-        <li class="nav-item">
-          <a class="nav-link" href="/new_recruit">채용공고 등록</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">지원서 편집</a>
-        </li>
-      <% end %>
     </ul>
 </div>
-<div class="container devise_view">
-    <hr/>
-    <h2>채용공고 등록</h2> <br><br>
-    <%= form_for @post, url: create_recruit_path do |f|%>
-        <div><h6>제목</h6></textarea><%= f.text_field :title, :class => "" %></div><br>
-        <div><h6>내용</h6><%= f.text_area :content, :class => "" %></div><br>
-        <div><%= datetime_select('duedate', 'date', :order => [:month, :day, :year, :hour,:minute]) %></div><br>
-        <div><%= f.submit '작성', class:"write btn btn-outline-success my-2 my-sm-0"%></div>
-    <% end %>
+<div class="container devise_view d-flex mb-5">
+    <div class="col-12 col-md-6 mb-3 mb-md-0">
+        <h2>채용공고 등록</h2><br>
+        <%= form_for @post, url: create_recruit_path do |f|%>
+            <div><h6>제목</h6><%= f.text_area :title, :class => "", :rows =>1, :cols => 60 %></div><br>
+            <div><h6>내용</h6><%= f.text_area :content, :class => "", :rows => 10, :cols => 60 %></div><br>
+            <div><h6>마감일</h6><%= datetime_select('duedate', 'date', :order => [:month, :day, :year, :hour,:minute]) %></div><br>   <hr/>  
+        <h2>지원서 질문 등록</h2><br>
+            <%= form_for @app, url: create_application_path do |f| %>
+                <ol class="q_list" start="1">
+                    
+                </ol>
+                <div class="d-flex justify-content-center"><div class="add_q btn btn-outline-primary mb-5">+</div></div><hr/>
+                <div class="d-flex justify-content-end"><%= f.submit '작성', :class => "write btn btn-outline-success my-2 my-sm-0 "%></div>
+            <% end %>
+        <% end %>    
+    </div>
         
+    
 </div>
 
 <script>
@@ -30,10 +31,16 @@
             var url = window.location.href;
             // console.log(url);
             $("a.nav-link").each(function() {
-                console.log(this.href);
                 if(url == (this.href)){
                     $(this).addClass("nav_active");
                 }
             })
+        });
+    $("div.add_q").click(function() {
+           $.ajax({
+              type: "GET"
+            }).done(function(data) {
+                $("ol.q_list").append("<li class='mb-2'><input type='text' name='questions[]' size='50'> </input></li>");
+            });
         });
 </script>

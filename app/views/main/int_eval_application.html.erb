@@ -1,0 +1,58 @@
+<div class="vertical_menu">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="/eval_application/<%=@applicant.id%>">서류평가</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/eval_interview/<%=@app_num%>">면접평가</a>
+      </li>
+    </ul>
+</div>
+
+
+<div class="container devise_view d-flex app_eval">
+    <div>
+        <h3 class="mb-3">'<%= @applicant.name %>'님의 지원서</h3>
+        <h5>제목: <%= @app.title %></h5>
+        <ol>
+            <% Qa.where(recruit_application: @app.id).each do |q| %>
+                <li>
+                    <div><%= q.question %></div>
+                    <div>=><%= q.answer %></div>
+                </li>
+            <% end %>
+        </ol>
+    </div>
+    <div>
+        <h3>면접 평가 점수 입력</h3>
+        <%= form_for @app_info, url: create_int_eval_path do |f| %>
+          <span class="mr-2">점수: </span><%= f.range_field :interview_eval_score, :in => 0..100 %>
+          <%= f.hidden_field :app_info_id, :value => @app_info.id %>
+          <div class="mb-2">
+        <span class="mr-2">합격여부: </span>
+          <select name="pass" id="">
+            <option value="미정">미정</option>
+            <option value="면접 불합격">면접 불합격</option>
+            <option value="면접 합격">면접 합격</option>
+        </select>
+        </div>
+          <%= f.submit '입력' %>
+        <% end %>
+    </div>
+    <div></div>
+        <%#= range_field(application_eval_score, in 0..100) %>
+    <%# end %>
+</div>
+
+<script>
+  $(document).ready(function () {
+            var url = window.location.href;
+            // console.log(url);
+            $("a.nav-link").each(function() {
+                console.log(this.href);
+                if(url == (this.href)){
+                    $(this).addClass("nav_active");
+                }
+            })
+        });
+</script>

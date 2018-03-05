@@ -3,8 +3,7 @@ class CreateRecruitApplications < ActiveRecord::Migration
     create_table :recruit_applications do |t|
       t.string :title
       t.string :name
-      t.text :question
-      t.text :answer
+      t.integer :post_id
 
       t.timestamps null: false
     end

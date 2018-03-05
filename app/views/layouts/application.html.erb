@@ -31,21 +31,28 @@
                 <a href="/" class="logo">ECRUIT</a>
             </div>
             <div style="width: 40%">
-                <%= form_tag(posts_show_path, :method => "get", id: "search-form", :class=> " d-inline pb-2 mt-2") do %>
-                    <%= text_field_tag :search, params[:search], placeholder: "Search", :class=>"form-control mr-sm-2"  %>
+                <%= form_tag(search_path, :method => "get", id: "search-form", :class=> " d-inline pb-2 mt-2") do %>
+                    <%= text_field_tag :query, params[:query], placeholder: "기업명 검색", :class=> "form-control mr-sm-2" %>
                     <%#= submit_tag "Search", :name => nil, :class=>"btn btn-outline-success my-2 my-sm-0" %>
                 <% end %>
             </div>
             <div>
                 <a href="/recruit" class="mr-5 menu">채용공고</a>
-                <a href="/hr" class="mr-5 menu">인력공고</a>
-                <a href="/apply" class="mr-5 menu">지원관리</a>
+                <% if current_user %>
+                <% if current_user.user_type == "기업회원"%>
+                        <a href="/apply" class="mr-5 menu">채용관리</a>
+                <% else %>
+                    <a href="/applying" class="mr-5 menu">지원관리</a>
+                <% end %>
+                <% end %>
+                    
                 <% if user_signed_in? %>
                   <a href="/users/edit" class="mr-5 menu">마이페이지</a>   
                 <% end %>
             </div>
         </nav>
     </header>
+    <hr/>
   </div>
   
 <%= yield %>

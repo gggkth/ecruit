@@ -1,0 +1,21 @@
+<div class="container devise_view">
+    <% if !@result %>
+        <h3>검색결과 없음.</h3>
+    <% else %>
+        <h6 class="text-muted">기업명</h6>
+        <p class="ml-3"><%= @result.name %></p>
+        <h6 class="text-muted">전화번호</h6>
+        <p class="ml-3"><%= @result.phone_number %></p>
+        <h6 class="text-muted">주소</h6>
+        <p class="ml-3"><%= @result.address %></p>
+        <h6 class="text-muted">소개</h6>
+        <p class="ml-3"><%= @result.intro %></p><hr/>
+        <h5 class="text-info">등록 채용공고</h5>
+        <% if @posts %>
+            <% @posts.each do |post| %>
+                <a href="/show/<%=post.id%>"><h6 class="text-dark ml-3"><%= post.title %>(~ <%= post.duedate.to_date %>)</h6></a>
+            <% end %>
+        <% end %>
+    <% end %>
+    
+</div>

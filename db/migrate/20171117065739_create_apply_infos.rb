@@ -5,8 +5,9 @@ class CreateApplyInfos < ActiveRecord::Migration
       t.references :recruit_post, index: true, foreign_key: true
       t.references :recruit_application, index: true, foreign_key: true
       t.string :status, default: "진행중"
-      t.integer :application_eval_score
-      t.integer :interview_eval_score
+      t.integer :application_eval_score, default: 0
+      t.integer :interview_eval_score, default: 0
+      t.string :apply_result, default: "미정"
 
       t.timestamps null: false
     end

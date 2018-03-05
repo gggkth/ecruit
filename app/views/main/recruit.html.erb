@@ -3,42 +3,51 @@
       <li class="nav-item">
         <a class="nav-link" href="/recruit">채용공고</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/new_recruit">채용공고 등록</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/new_application">지원서 편집</a>
-      </li>
+      
     </ul>
 </div>
 <div class="container devise_view">
+    
+    <h2 class="mb-3">현재 채용공고</h2>
     <hr/>
-    <h2 class="mb-3">현재 채용공고</h2><br><br>
     <div class="container">
-      <div class="post_label mb-2"> 
-        <span>글번호</span>
-        <span>기업명</span>
-        <span>작성일</span>
-        <span>제목</span>
-        <span>마감일</span>
+      <div class="post_label mb-2 bg-dark p-1"> 
+        <span class="text-light">글번호</span>
+        <span class="text-light">기업명</span>
+        <span class="text-light">작성일</span>
+        <span class="text-light">제목</span>
+        <span class="text-light">마감일</span>
       </div>
       <% @posts.each do |post| %>
-        <div class="post_item mb-3">
+        <a href="/show/<%=post.id%>" class="recruit_list"><div class="post_item mb-3 p-1">
           <span><%= post.id %></span>
-          <span><%= post.name %></span>
+          <span><%= User.find(post.recruiter).name %></span>
           <span><%= post.created_at.to_date %></span>
           <span><%= post.title %></span>
           <span><%= post.duedate.to_date %></span>
           <% if current_user && current_user.user_type == "일반회원" %>
             <% if post.users.include? current_user %>
-              <span>지원완료</span>
+              <span class="text-success">지원완료</span>
             <% else %>
               <!--<a href="/create_apply/<%#=post.id%>" class="apply_btn">지원하기</a>-->
-              <a href="/new_apply/<%=post.id%>" class="apply_btn">지원하기</a>
+              <!--<a href="/new_apply/<%#=post.id%>" class="apply_btn">지원하기</a>-->
             <% end %>
+            <%else%>
+            <!--<a href="/create_apply/<%#=post.id%>" class="apply_btn">지원서 편집</a>-->
           <% end %>
-        </div>
-      <% end %>  
+          
+            <% if current_user && current_user.user_type =="기업회원" %>
+              <% if post.recruiter == current_user.id %>
+                <a href="/delete_recruit/<%=post.id%>" class="apply_btn">삭제</a>
+              <% end %>
+            <% end %>
+          
+        </div></a>
+      <% end %>
+      
+      <% if current_user && current_user.user_type =="기업회원" %>
+        <div><br><br><a href="/new_recruit/" class="apply_btn">등록</a></div>
+      <% end %>
     </div>
 </div>
 

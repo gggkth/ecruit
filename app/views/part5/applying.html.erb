@@ -1,13 +1,13 @@
 <div class="vertical_menu">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link" href="/apply">등록한<br> 채용공고</a></a>
+        <a class="nav-link" href="/applying">지원한<br> 채용공고</a></a>
       </li>
     </ul>
 </div>
 
 <div class="container devise_view">
-    <h2 class="mb-3">등록한 채용공고</h2>
+    <h2 class="mb-3">지원한 채용공고</h2>
     <hr/>
     <div class="container">
       <div class="post_label mb-2 bg-dark p-1">
@@ -18,30 +18,32 @@
         <span class="text-light">면접평가</span>
         <span class="text-light">결과</span>
       </div>
-      <% if current_user %>
+      
+
+      
+<% if current_user %>
+    <% @infos.each do |info| %>
+        <% @posts=RecruitPost.where(id: info.recruit_post.id) %>
         <% @posts.each do |post| %>
-          <div class="post_item mb-3 p-1">
-            <span><%= post.id %></span>
-            <span><%= post.title %></span>
-            <% if @appinfo = ApplyInfo.find_by(recruit_post: post.id) %>
-              <span><%= @appinfo.status %></span>
-            <% else %>
-              <span>진행중</span>
-            <% end %>
+            <div class="post_item mb-3 p-1">
+          <span class="pl-2"><%= post.id %></span>
+          <span><%= post.title %></span>
             <% if post.duedate > Time.now.to_datetime %>
-              <span><a href="/app_eval/<%=post.id%>">평가</a></span>
+              <span><a href="/edit_apply/<%=post.id%>" >지원중</a></span>
             <% else %>
-              <span><%= ApplyInfo.where(recruit_post: post.id)[0].application_eval_score %></span>
+              <span><%= info.status %></span>
             <% end %>
-            <% if post.duedate > Time.now.to_datetime %>
-              <span><a href="/int_eval/<%=post.id%>">평가</a></span>
-            <% end %>
-          </div>
+          <span><%= info.application_eval_score %></span>
+          <span><%= info.interview_eval_score %></span>
+          <span><%= info.apply_result %></span>
+        </div>
         <% end %>
-      <% end %>
+    <% end %>
+<% end %>
       
     </div>
 </div>
+
 <script>
   $(document).ready(function () {
             var url = window.location.href;
